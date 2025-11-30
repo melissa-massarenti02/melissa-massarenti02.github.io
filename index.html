@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario dell'Avvento 2025</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1 class="sticker-container">
+        <img class="sticker sticker-1" src="https://img.icons8.com/3d-fluency/94/christmas-tree.png" alt="christmas-tree"/>
+        <img class="sticker sticker-2" src="https://img.icons8.com/3d-fluency/94/candy-cane.png" alt="candy-cane"/>
+        Calendario dell'Avvento 2025
+        <img class="sticker sticker-3" src="https://img.icons8.com/3d-fluency/94/christmas-ball.png" alt="christmas-ball"/>
+        <img class="sticker sticker-4" src="https://img.icons8.com/3d-fluency/94/snowflake.png" alt="snowflake"/>
+        <img class="sticker sticker-5" src="https://img.icons8.com/3d-fluency/94/santas-hat.png" alt="santas-hat"/>
+    </h1>
+
+    <div class="calendar-grid">
+        <script>
+            for (let i = 1; i <= 24; i++) {
+                document.write(`<div class="door" data-day="${i}"><span class="number">${i}</span><span class="reveal">🎁</span></div>`);
+            }
+        </script>
+    </div>
+
+    <div id="filmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Il Film di Oggi!</h2>
+            <img id="filmPoster" alt="Poster del film" />
+            
+            <p id="filmTitle"></p>
+            <p id="personalMessage"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

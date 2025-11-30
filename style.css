@@ -1,0 +1,237 @@
+/* 🚨 IMPORTANTE: L'importazione dei font DEVE essere la prima cosa nel file! */
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+CU:wght@100..400&family=Raleway&display=swap');
+
+body {
+    background-color: #ca9f92; /* Beige caldo */
+    text-align: center;
+    color: #5d4037;
+    padding: 20px;
+    background-image: url('https://www.transparenttextures.com/patterns/fabric-light.png'); /* Texture leggera */
+}
+
+/* 🖼️ Stile per il Titolo Principale (Playwrite CUBA) */
+h1 {
+    font-family: 'Playwrite CU', cursive; 
+    color: #880e4f; 
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    font-size: 3.5em; 
+    font-weight: 400; 
+    /* Nota: Usiamo la classe sticker-container nell'HTML per h1, ma qui definiamo solo h1 */
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 colonne */
+    gap: 15px; /* Aumenta lo spazio tra le caselle */
+    max-width: 960px; /* Larghezza leggermente maggiore */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffe082; /* Giallo chiaro, come biscotto */
+    border-radius: 25px; /* Bordi più arrotondati */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Ombra più pronunciata */
+    border: 5px dashed #d84315; /* Bordo "glassato" */
+}
+
+.door {
+    position: relative;
+    background-color: #a1887f; /* Marrone chiaro, pan di zenzero */
+    height: 140px; /* Caselle più grandi */
+    display: flex;
+    flex-direction: column; /* Per posizionare numero e decorazione */
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff8e1; /* Crema */
+    cursor: pointer;
+    border-radius: 15px; /* Bordi arrotondati */
+    border: 3px solid #ffccbc; /* Bordo "glassa" più chiara */
+    transition: transform 0.4s ease-in-out, background-color 0.4s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Decorazione interna per ogni porta */
+.door::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 2px dotted #fff; /* Effetto zucchero a velo */
+    border-radius: 10px;
+    z-index: 1;
+}
+
+/* Stile per il numero del giorno */
+.door .number {
+    z-index: 3; /* Assicurati che il numero sia sopra */
+    font-size: 40px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Contenuto nascosto che appare all'apertura */
+.door .reveal {
+    position: absolute;
+    font-size: 70px; /* Icona più grande */
+    color: #e57373; /* Rosso caramella */
+    z-index: 2;
+    transform: scale(0);
+    transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Animazione più "rimbalzosa" */
+}
+
+/* Quando la porta è 'open' */
+.door.open {
+    background-color: #ffee58; /* Giallo brillante */
+    transform: rotateY(180deg) scale(1.05); /* Rotazione e leggero ingrandimento */
+    pointer-events: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.door.open .number {
+    display: none;
+}
+
+.door.open .reveal {
+    transform: rotateY(180deg) scale(1.1); /* Ruota e ingrandisce un po' di più */
+    color: #ef9a9a; /* Rosso più delicato */
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Effetto luminoso */
+}
+
+/* --- Stili del Pop-up (Modal) --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100; /* Assicurati che sia sopra tutto */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px); /* Effetto sfocatura sullo sfondo */
+}
+
+.modal-content {
+    background-color: #fff9c4; /* Giallo chiaro, biscotto */
+    margin: 10% auto; /* Più in alto */
+    padding: 50px; /* Più padding */
+    border: 5px solid #d84315; /* Bordo "glassa" */
+    width: 80%;
+    max-width: 700px; /* Aumentato da 600px per far spazio al poster */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    position: relative;
+    animation-name: animatemodal; /* Nuova animazione */
+    animation-duration: 0.6s;
+    transform: scale(0.9); /* Iniziale per l'animazione */
+}
+
+/* Animazione per l'apertura del modal */
+@keyframes animatemodal {
+    from {
+        transform: scale(0.7) translateY(-200px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.close-button {
+    color: #d84315; /* Colore chiusura */
+    float: right;
+    font-size: 35px; /* Più grande */
+    font-weight: bold;
+    line-height: 1; /* Allineamento */
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #880e4f; /* Cambia colore all'hover */
+    text-decoration: none;
+}
+
+#filmPoster {
+    max-width: 100%; /* Assicura che l'immagine non superi la larghezza del contenitore */
+    height: auto;
+    max-height: 400px; /* Limita l'altezza per evitare modali troppo grandi */
+    border-radius: 10px;
+    margin: 15px auto; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    display: block; /* Per centrare l'immagine all'interno del modale */
+}
+
+/* 🎤 Stile per il Titolo Film (Comic Sans) */
+#filmTitle {
+    font-family: "Comic Sans MS", cursive, sans-serif; 
+    font-size: 2.2em; /* Più grande */
+    color: #880e4f; /* Rosa scuro */
+    margin-top: 20px;
+    line-height: 1.3;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+#personalMessage{
+   font-family: "Comic Sans MS", cursive, sans-serif; 
+    font-size: 1.2em; /* Più grande */
+    color: #880e4f; /* Rosa scuro */
+    margin-top: 15px;
+    line-height: 1.3;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+/* --- Stili per gli Sticker --- */
+.sticker-container {
+    position: relative;
+    width: 100%;
+    /* h1 in HTML è un elemento blocco, usiamo padding/margin per centrarlo, non height: 0 */
+}
+
+.sticker {
+    position: absolute;
+    width: 94px;
+    height: 94px;
+    z-index: 5;
+    filter: drop-shadow(3px 3px 5px rgba(0,0,0,0.2));
+}
+
+/* Posizionamento specifico per ogni sticker (adattato per h1 come contenitore relativo) */
+.sticker-1 { /* Albero di Natale (sinistra sopra) */
+    top: -50px; 
+    left: 20%; 
+    transform: rotate(-15deg); 
+}
+
+.sticker-2 { /* Bastoncino di zucchero (destra sopra) */
+    top: -30px;
+    right: 20%;
+    transform: rotate(20deg);
+}
+
+.sticker-3 { /* Palla di Natale (sinistra sotto) */
+    top: 50px; 
+    left: 5%;
+    transform: rotate(5deg);
+    width: 70px; 
+    height: 70px;
+}
+
+.sticker-4 { /* Fiocco di neve (destra sotto) */
+    top: 70px;
+    right: 10%;
+    transform: rotate(-30deg);
+    width: 80px;
+    height: 80px;
+}
+
+.sticker-5 { /* Cappello di Babbo Natale (centrale sotto) */
+    top: 80px;
+    left: 45%; /* Centrato sotto */
+    transform: rotate(10deg);
+}
